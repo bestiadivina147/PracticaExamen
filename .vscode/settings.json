@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "Readme.md",
-        "MagicalItem.java"
+        "MagicalItem.java",
+        "Wizard.java"
     ]
 }

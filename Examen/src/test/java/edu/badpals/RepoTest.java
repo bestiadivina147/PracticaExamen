@@ -7,6 +7,8 @@ import edu.badpals.domain.MagicalItem;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @QuarkusTest
 public class RepoTest {
@@ -56,6 +58,21 @@ public class RepoTest {
 	 * La anotacion jakarta.persistence para mapear 
 	 * a una tabla una propiedad Enum es
 	 * 	@Enumerated(EnumType.STRING)
+	 */
+	@Test
+	public void test_mapping_wizard() {
+		Wizard squib = em.find(Wizard.class, "Marius Black");
+		Assertions.assertThat(squib).isNotNull();
+		Assertions.assertThat(squib.toString()).contains("Marius Black");
+		Assertions.assertThat(squib.toString()).contains("15"); //wizard_dexterity
+		Assertions.assertThat(squib.toString()).contains("SQUIB");  //tipo enumerado
+	}
+
+	/**
+	 * Completa la definicion y el mapping
+	 * de la clase Order a la tabla t_orders
+	 * El id de esta clase ha de seguir una estrategia
+	 * Identity
 	 */
 	
 }

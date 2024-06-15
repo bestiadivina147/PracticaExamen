@@ -73,7 +73,13 @@ public class RepoTest {
 	 * El id de esta clase ha de seguir una estrategia
 	 * Identity
 	 */
-	
+	@Test
+	public void test_mapping_order() {
+		Order pedido = em.find(Order.class, 1L);
+		Assertions.assertThat(pedido).isNotNull();
+		Assertions.assertThat(pedido.toString()).contains("Marius Black"); //ord_wizard
+		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose"); //ord_item
+	}
 
 	
 }

@@ -3,6 +3,7 @@
         "Readme.md",
         "MagicalItem.java",
         "Wizard.java",
-        "RepoTest.java"
+        "RepoTest.java",
+        "Order.java"
     ]
 }

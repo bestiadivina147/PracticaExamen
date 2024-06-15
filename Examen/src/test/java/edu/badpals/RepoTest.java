@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import edu.badpals.domain.MagicalItem;
+import edu.badpals.domain.Order;
 import edu.badpals.domain.Wizard;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.persistence.EntityManager;

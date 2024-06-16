@@ -6,8 +6,10 @@ import edu.badpals.domain.MagicalItem;
 import edu.badpals.servicice.ServiceItem;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -38,5 +40,18 @@ public class Resources {
                                 Response.status(Response.Status.OK).entity(item).build():
                                 Response.status(Response.Status.NOT_FOUND).build();
         
+    }
+     @POST
+    @Path("/item")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -d '{"name": "Aged Brie", "quality": "50", "type": "MagicalItem"}' 
+    // -H "Content-Type: application/json" -X POST http://localhost:8080/item -v
+    public Response post(@Valid MagicalItem item) {
+        Optional<MagicalItem> itemPersisted = service.creaItem(item);
+        return itemPersisted.isPresent()?
+            Response.status(Response.Status.CREATED).entity(itemPersisted.get()).build():
+            Response.status(Response.Status.NOT_FOUND).build();
     }
 }

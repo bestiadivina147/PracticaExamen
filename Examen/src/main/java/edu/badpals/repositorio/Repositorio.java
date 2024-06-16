@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.List;
 
 import edu.badpals.domain.MagicalItem;
+import edu.badpals.domain.Order;
+import edu.badpals.domain.Person;
 import edu.badpals.domain.Wizard;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -39,6 +41,17 @@ public class Repositorio {
 
         ).findFirst();
     }
-    
+    public Optional<Order> placeOrder(String name_wizard,String name_item){
+        Order orden = null;
+        Optional<MagicalItem> item=this.repoItem.find("name = ?1", name_item).firstResultOptional();
+        Optional<Wizard> wizard = this.repoWizard.findByIdOptional(name_wizard);
+        if(item.isPresent() && wizard.isPresent() && !wizard.get().getPerson().equals(Person.MUDBLOOD)){
+             orden = new Order();
+            orden.setItem(item.get());
+            orden.setWizard(wizard.get());
+            this.repoOrder.persist(orden);
+        }
+        return Optional.ofNullable(orden);
+    }
 
 }

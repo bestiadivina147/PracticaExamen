@@ -57,5 +57,8 @@ public class Repositorio {
         MagicalItem item = new MagicalItem(name, quality, type);
         this.repoItem.persist(item);
     }
+    public void createItems(List<MagicalItem> items){
+        this.repoItem.persist(items);
+    }
 
 }

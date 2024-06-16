@@ -1,5 +1,6 @@
 package edu.badpals;
 
+import java.util.List;
 import java.util.Optional;
 
 import edu.badpals.domain.MagicalItem;

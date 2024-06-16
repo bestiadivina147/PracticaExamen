@@ -7,6 +7,7 @@ import edu.badpals.domain.MagicalItem;
 import edu.badpals.domain.Order;
 import edu.badpals.domain.Person;
 import edu.badpals.domain.Wizard;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -59,6 +60,12 @@ public class Repositorio {
     }
     public void createItems(List<MagicalItem> items){
         this.repoItem.persist(items);
+    }
+    public void deleteItem(MagicalItem item){
+        Optional<MagicalItem> result = loadItem(item);
+        if(result.isPresent()){
+            this.repoItem.delete(result.get());
+        }
     }
 
 }

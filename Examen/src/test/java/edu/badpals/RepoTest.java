@@ -273,5 +273,35 @@ public class RepoTest {
 		 Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Sulfuras, Hand of Ragnaros");
 		 Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", -1);
 	 }
+	 /**
+     * Implementa el metodo deleteItem() del repositorio
+	 * que elimina el item indicado en la base de datos.
+     * Los parametros necesarios son:
+     *      "name" con el nombre del item
+	 *      "quality" con la calidad del item
+	 *      "type" con el tipo de item.
+     * 
+     * El item eliminado ha de tener el mismo 
+     * name, quality y type que el de la peticion
+     * y no cualquier otro item de la base de datos
+     * solo con el mismo nombre.
+     */
+	@Test
+	@Transactional
+	public void test_delete_item() {
+		Assertions.assertThat(repo).isNotNull();
+
+		// Item eliminado porque no existe en orders => no rompe integridad referencial
+		MagicalItem item = new MagicalItem("Time-Turner", 200, "MagicalItem");
+		repo.deleteItem(item);
+
+		MagicalItem travel = em.find(MagicalItem.class, 7L);
+		Assertions.assertThat(travel).isNull();
+
+		// Si no existe el item
+		item = new MagicalItem("Varita de Sauco", 1000, "MagicalItem");
+		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
+	}
+
  
 }

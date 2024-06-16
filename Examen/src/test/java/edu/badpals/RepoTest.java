@@ -1,6 +1,7 @@
 package edu.badpals;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 @QuarkusTest
 public class RepoTest {
@@ -179,5 +182,39 @@ public class RepoTest {
 		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
 	}
-	
+	/**
+	 * Implementa el metodo placeOrder(wizard, item) del repositorio 
+	 * que genera un pedido de un item para un mago determinado.
+	 * El pedido se guarda en la base de datos.
+	 *  
+	 * Los magos/as mudblood NO pueden comprar un item.
+	 */
+
+	@Test
+	@Transactional
+	public void test_pedido() {
+ 
+		// Hermione no puede comprar items
+		Assertions.assertThat(repo).isNotNull();
+		Optional<Order> orden = repo.placeOrder("Hermione", "Elixir of the Mongoose");
+		Assertions.assertThat(orden).isEmpty();
+ 
+		// Marius Black compra un item
+		orden = repo.placeOrder("Marius Black", "Elixir of the Mongoose");
+		Assertions.assertThat(orden).isNotEmpty();
+ 
+		Assertions.assertThat(orden.get().getId()).isNotZero();
+		Assertions.assertThat(orden.get().getWizard().getName()).isEqualTo("Marius Black");
+		Assertions.assertThat(orden.get().getItem().getName()).isEqualTo("Elixir of the Mongoose");
+  
+		// query para obtener todos los pedidos de Marius
+		// de manera agnostica al patron DAO /Active record
+		TypedQuery<Order> query = em.createQuery("select orden from Order orden join orden.wizard wizard where wizard.name = 'Marius Black'", Order.class);
+		List<Order> pedidos = query.getResultList();
+		  
+		Assertions.assertThat(pedidos).isNotNull().hasSize(3);
+		Assertions.assertThat(pedidos.get(2).getWizard().getName()).isEqualTo("Marius Black");
+		Assertions.assertThat(pedidos.get(2).getItem().getName()).isEqualToIgnoringCase("Elixir of the Mongoose");
+	}
+ 
 }

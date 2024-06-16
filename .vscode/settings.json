@@ -9,5 +9,6 @@
         "RepoWizard.java",
         "RepoItem.java"
     ],
-    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "java.debug.settings.onBuildFailureProceed": true
 }

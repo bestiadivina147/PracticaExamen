@@ -302,6 +302,26 @@ public class RepoTest {
 		item = new MagicalItem("Varita de Sauco", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 	}
+	
+	/**
+	 * Implementa un servicio, 
+	 * indica que es un bean
+	 * e inyectalo en los casos test
+	 * 
+	 * Utiliza el código:
+	 * @Inject
+	 * ServiceItem servicio;
+	 */
+	@Test
+	public void test_servicio_existe() {
+		Assertions.assertThat(servicio).isNotNull();
+	}
+
+	/**
+	 * Recuerda inyectar el repositorio en el servicio
+	 * y continua completando los test de ResourceTest.
+	 */
+
 
  
 }

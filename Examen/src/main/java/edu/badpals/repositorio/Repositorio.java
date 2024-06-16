@@ -7,28 +7,38 @@ import edu.badpals.domain.MagicalItem;
 import edu.badpals.domain.Wizard;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
+@Transactional
 public class Repositorio {
     @Inject
     RepoWizard repoWizard;
     @Inject
     RepoItem repoItem;
-    public Optional<Wizard> loadWizard(String name){
-       return this.repoWizard.findByIdOptional(name);
+    @Inject
+    RepoOrder repoOrder;
+
+    public Optional<Wizard> loadWizard(String name) {
+        return this.repoWizard.findByIdOptional(name);
 
     }
-    public Optional<MagicalItem> loadItem(String name){
+
+    public Optional<MagicalItem> loadItem(String name) {
         return this.repoItem.find("name", name).firstResultOptional();
     }
-    public List<MagicalItem> loadItems(String name){
+
+    public List<MagicalItem> loadItems(String name) {
         return this.repoItem.list("name", name);
     }
-    public Optional<MagicalItem>loadItem(MagicalItem item){
-        return this.loadItems(item.getName()).stream().filter(mi -> mi.getName().equals(item.getName())&&
-                                                                    mi.getQuality()==item.getQuality()&&
-                                                                    mi.getType().equals(item.getType())
-        
+
+    public Optional<MagicalItem> loadItem(MagicalItem item) {
+        return this.loadItems(item.getName()).stream().filter(  mi -> mi.getName().equals(item.getName()) &&
+                                                                mi.getQuality() == item.getQuality() &&
+                                                                mi.getType().equals(item.getType())
+
         ).findFirst();
-}
+    }
+    
+
 }

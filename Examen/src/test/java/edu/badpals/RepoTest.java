@@ -135,4 +135,27 @@ public class RepoTest {
 		// test no existe el item
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 	}
+	/**
+	 * Implementa el metodo loadItem(name, quality, type) 
+	 * del repositorio que devuelve un Optional del Item
+	 * con el nombre indicado.
+	 *  
+	 * El item devuelto ha de tener el mismo 
+     * name, quality y type que el de la peticion
+     * y no cualquier otro item de la base de datos
+     * que tenga sólo el mismo nombre.
+	 */
+	@Test
+	public void test_load_item_equal() {
+		Assertions.assertThat(repo).isNotNull();
+		MagicalItem brie = new MagicalItem("Aged Brie", 0, "MagicalItem");
+		MagicalItem item = repo.loadItem(brie).get();
+		Assertions.assertThat(item).isNotNull();
+		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
+		Assertions.assertThat(item.getQuality()).isZero();
+
+		// test no existe el item
+		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
+		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
+	}
 }

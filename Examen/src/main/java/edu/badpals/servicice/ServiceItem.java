@@ -13,20 +13,20 @@ public class ServiceItem {
     @Inject
 	 Repositorio repo;
     
-    Optional<MagicalItem> cargaItem(String name){
+    public Optional<MagicalItem> cargaItem(String name){
         return repo.loadItem(name);
     }
-    Optional<MagicalItem> cargaItem(MagicalItem item){
+    public Optional<MagicalItem> cargaItem(MagicalItem item){
         return repo.loadItem(item);
     }
-    List<MagicalItem> cargaItems(String name){
+    public List<MagicalItem> cargaItems(String name){
         return repo.loadItems(name);
     }
-    Optional<MagicalItem> creaItem(MagicalItem item){
+    public Optional<MagicalItem> creaItem(MagicalItem item){
         repo.createItem(item.getName(), item.getQuality(), item.getType());
         return repo.loadItem(item);
     }
-    void eliminaItem(MagicalItem item){
+    public void eliminaItem(MagicalItem item){
         repo.deleteItem(item);
     }
 }

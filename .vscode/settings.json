@@ -6,7 +6,8 @@
         "RepoTest.java",
         "Order.java",
         "Repositorio.java",
-        "RepoWizard.java"
+        "RepoWizard.java",
+        "RepoItem.java"
     ],
     "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

@@ -1,19 +1,20 @@
 package edu.badpals;
 
 import io.quarkus.test.junit.QuarkusTest;
-import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
+import org.assertj.core.api.Assertions;
+
 @QuarkusTest
 class ResourceTest {
+    
     @Inject
-    Resource resources;
+    Resources resources;
 
 
     /**
@@ -30,6 +31,5 @@ class ResourceTest {
     public void test_injeccion() {
         Assertions.assertThat(resources.service).isNotNull();
     }
-
 
 }

@@ -98,5 +98,21 @@ public class RepoTest {
 	public void test_repositorio_existe() {
 		Assertions.assertThat(repo).isNotNull();
 	}
+	/**
+	 * Implementa el metodo loadWizard del repositorio
+	 * que devuelve un Optional del mago/a con el nombre indicado
+	 */
 	
+	 @Test
+	 public void test_load_wizard() {
+		 Assertions.assertThat(repo).isNotNull();
+		 Wizard squib = repo.loadWizard("Hermione").get();
+		 Assertions.assertThat(squib).isNotNull();
+		 Assertions.assertThat(squib.toString()).contains("Hermione");
+		 Assertions.assertThat(squib.toString()).contains("100");
+		 Assertions.assertThat(squib.toString()).contains("MUDBLOOD");
+ 
+		 // test no existe el mago
+		 Assertions.assertThat(repo.loadWizard("Severus Snape")).isEmpty();
+	 }
 }

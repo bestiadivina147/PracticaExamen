@@ -115,4 +115,24 @@ public class RepoTest {
 		 // test no existe el mago
 		 Assertions.assertThat(repo.loadWizard("Severus Snape")).isEmpty();
 	 }
+	 /**
+	 * Implementa el metodo loadItem() del repositorio
+	 * que devuelve un Optional del Item con el nombre indicado.
+	 * 
+	 * Ojo que el nombre del item no es la clave primaria.
+	 * 
+	 * El metodo devueve el primer item cuyo nombre
+	 * coincida con el especificado.
+	 */
+	@Test
+	public void test_load_item() {
+		Assertions.assertThat(repo).isNotNull();
+		MagicalItem item = repo.loadItem("Aged Brie").get();
+		Assertions.assertThat(item).isNotNull();
+		Assertions.assertThat(item.getName()).isEqualTo("Aged Brie");
+		Assertions.assertThat(item.getQuality()).isEqualTo(10);
+
+		// test no existe el item
+		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
+	}
 }

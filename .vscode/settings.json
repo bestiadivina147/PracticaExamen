@@ -4,6 +4,7 @@
         "MagicalItem.java",
         "Wizard.java",
         "RepoTest.java",
-        "Order.java"
+        "Order.java",
+        "Repositorio.java"
     ]
 }

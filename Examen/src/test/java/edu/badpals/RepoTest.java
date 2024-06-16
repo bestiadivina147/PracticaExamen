@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import edu.badpals.domain.MagicalItem;
 import edu.badpals.domain.Order;
 import edu.badpals.domain.Wizard;
+import edu.badpals.repositorio.Repositorio;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -16,8 +18,8 @@ public class RepoTest {
     @PersistenceContext
 	EntityManager em;
 
-	// @Inject
-	// Repositorio repo;
+	 @Inject
+	 Repositorio repo;
 
 	// @Inject
     // ServiceItem servicio;
@@ -82,5 +84,19 @@ public class RepoTest {
 		Assertions.assertThat(pedido.toString()).containsIgnoringCase("Elixir of the Mongoose"); //ord_item
 	}
 
+	
+	/**
+	 * Crea una clase llamada Repositorio
+	 * e inyectala en los casos test
+	 * (ha de ser un bean) 
+	 * 
+	 * Utiliza el código:
+	 * @Inject
+	 * Repositorio repo;
+	 */
+	@Test
+	public void test_repositorio_existe() {
+		Assertions.assertThat(repo).isNotNull();
+	}
 	
 }

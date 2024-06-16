@@ -10,6 +10,7 @@ import edu.badpals.domain.MagicalItem;
 import edu.badpals.domain.Order;
 import edu.badpals.domain.Wizard;
 import edu.badpals.repositorio.Repositorio;
+import edu.badpals.servicice.ServiceItem;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -26,8 +27,8 @@ public class RepoTest {
 	 @Inject
 	 Repositorio repo;
 
-	// @Inject
-    // ServiceItem servicio;
+	 @Inject
+     ServiceItem servicio;
 
     /**
 	 * Tests sobre los mappings

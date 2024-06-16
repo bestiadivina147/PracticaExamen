@@ -8,7 +8,8 @@
         "Repositorio.java",
         "RepoWizard.java",
         "RepoItem.java",
-        "RepoOrder.java"
+        "RepoOrder.java",
+        "ServiceItem.java"
     ],
     "CodeGPT.apiKey": "CodeGPT Plus Beta",
     "java.debug.settings.onBuildFailureProceed": true

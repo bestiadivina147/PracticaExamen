@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -53,5 +54,28 @@ public class Resources {
         return itemPersisted.isPresent()?
             Response.status(Response.Status.CREATED).entity(itemPersisted.get()).build():
             Response.status(Response.Status.NOT_FOUND).build();
+    }
+     @GET
+    @Path("/items/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    // curl -w "\n" http://localhost:8080/items/Aged%20Brie -v
+    // curl -w "\n" http://localhost:8080/items/Varita -v
+    public Response getItems(@PathParam("name") String name) {
+        List<MagicalItem> items = service.cargaItems(name);
+        return items.isEmpty()? 
+        Response.status(Response.Status.NOT_FOUND).build():
+        Response.status(Response.Status.OK).entity(items).build();
+    }
+    
+    @DELETE
+    @Path("/item/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    // curl -d '{"name": "+5 Dexterity Vest", "quality": "60", "type": "MagicalItem"}' 
+    // -H "Content-Type: application/json" -X DELETE http://localhost:8080/item -v   
+    public Response delete(@Valid MagicalItem item) {
+        service.eliminaItem(item);
+        return Response.status(Response.Status.OK).entity(service.cargaItems(item.getName())).build();
     }
 }

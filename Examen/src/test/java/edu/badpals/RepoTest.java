@@ -216,5 +216,22 @@ public class RepoTest {
 		Assertions.assertThat(pedidos.get(2).getWizard().getName()).isEqualTo("Marius Black");
 		Assertions.assertThat(pedidos.get(2).getItem().getName()).isEqualToIgnoringCase("Elixir of the Mongoose");
 	}
+	/**
+	 * Implementa el metodo createItem() del repositorio
+	 * que crea un item en la base de datos.
+	 */
+	@Test
+	@Transactional
+	public void test_create_item() {
+		Assertions.assertThat(repo).isNotNull();
+
+		repo.createItem("Guardapelo", 100, "MagicalItem");
+
+		MagicalItem relic = repo.loadItem("Guardapelo").get();
+		Assertions.assertThat(relic).isNotNull();
+		Assertions.assertThat(relic.getName()).isEqualTo("Guardapelo");
+		Assertions.assertThat(relic.getQuality()).isEqualTo(100);
+		Assertions.assertThat(relic.getType()).isEqualTo("MagicalItem");
+	}
  
 }

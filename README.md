@@ -67,6 +67,6 @@ Os casos test do repositorio involucran os contidos mínimos do módulo precisos
 
 Unha vez codificado o repositorio, continua cos casos test do arquivo ResourceTest.java para implementar o servicio e o controlador da app. Todas as peticións ao controlador deben pasar polo servizo antes de dirixilas ao método correspondente do repositorio.
 
-
+quarkus create app Examen --package-name=edu.badpals
 
 ## Diego Perez Clavero

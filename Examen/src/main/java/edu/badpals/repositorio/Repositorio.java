@@ -53,5 +53,9 @@ public class Repositorio {
         }
         return Optional.ofNullable(orden);
     }
+    public void createItem(String name,int quality,String type){
+        MagicalItem item = new MagicalItem(name, quality, type);
+        this.repoItem.persist(item);
+    }
 
 }

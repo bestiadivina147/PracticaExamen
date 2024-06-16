@@ -3,6 +3,7 @@ package edu.badpals;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Test;
 
@@ -83,6 +84,42 @@ class ResourceTest {
         .then()
             .statusCode(404);
 	}
-    
+    /**
+     * Guarda un item empleando el método POST en la url
+     *    /item
+     * Los parametros post necesarios, en un JSON, son:
+     *      "name" con el nombre del item
+	 *      "quality" con la calidad del item
+	 *      "type" con el tio de item.
+     * 
+     * La peticion ha de retornar el item JSON
+     * y status code 201 si ha sido generada 
+     * o 404 en caso contrario.
+     * 
+     * El item devuelto ha de ser IDENTICO al que 
+     * acabas de crear, con el mismo name, quality y type,
+     * y no cualquier otro item de la base de datos
+     * solo con el mismo nombre.
+	 * 
+	 * La peticion ha de redirigirse al servicio.
+	 * El servicio utiliza el repositorio
+	 * para hacer la consulta a la base de datos.
+     */
+	@Test
+    public void test_post_item() throws Exception {
+
+        // El item se crea si todas sus propiedades son NO nulas ni vacias
+		given()
+            .body("{\"name\": \"Resurrection Stone\", \"quality\": \"666\", \"type\": \"MagicalItem\"}")
+            .header("Content-Type", MediaType.APPLICATION_JSON)
+        .when()
+            .post("/item")
+        .then()
+            .statusCode(201)
+            .contentType(ContentType.JSON)
+            .body("name", equalTo("Resurrection Stone"),
+                  "quality", equalTo(666),
+                  "type", equalTo("MagicalItem"));
+    }
 
 }

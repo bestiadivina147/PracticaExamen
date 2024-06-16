@@ -1,6 +1,7 @@
 package edu.badpals.repositorio;
 
 import java.util.Optional;
+import java.util.List;
 
 import edu.badpals.domain.MagicalItem;
 import edu.badpals.domain.Wizard;
@@ -19,5 +20,8 @@ public class Repositorio {
     }
     public Optional<MagicalItem> loadItem(String name){
         return this.repoItem.find("name", name).firstResultOptional();
+    }
+    public List<MagicalItem> loadItems(String name){
+        return this.repoItem.list("name", name);
     }
 }

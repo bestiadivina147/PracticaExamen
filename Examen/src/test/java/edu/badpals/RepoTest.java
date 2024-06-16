@@ -1,5 +1,7 @@
 package edu.badpals;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -136,6 +138,25 @@ public class RepoTest {
 		Assertions.assertThat(repo.loadItem("Varita de Sauco")).isEmpty();
 	}
 	/**
+	 * Implementa el metodo loadItems() del repositorio
+	 * que devuelve una lista de Items 
+	 * con el nombre indicado
+	 * 
+	 * Ojo que el nombre del item no es la clave primaria.
+	 */
+	@Test
+	public void test_load_items() {
+		Assertions.assertThat(repo).isNotNull();
+
+		List<MagicalItem> items = repo.loadItems("Aged Brie");
+		Assertions.assertThat(items).isNotEmpty().hasSize(2);
+		Assertions.assertThat(items.get(0)).hasFieldOrPropertyWithValue("name", "Aged Brie");
+		Assertions.assertThat(items.get(1)).hasFieldOrPropertyWithValue("quality", 0);
+
+		// test no existe el item
+		Assertions.assertThat(repo.loadItems("Varita de Sauco")).isEmpty();
+	}
+	/**
 	 * Implementa el metodo loadItem(name, quality, type) 
 	 * del repositorio que devuelve un Optional del Item
 	 * con el nombre indicado.
@@ -158,4 +179,5 @@ public class RepoTest {
 		brie = new MagicalItem("Aged Brie", 1000, "MagicalItem");
 		Assertions.assertThat(repo.loadItem(brie)).isEmpty();
 	}
+	
 }
